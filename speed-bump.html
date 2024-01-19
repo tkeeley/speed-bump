@@ -1,0 +1,85 @@
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+</style>
+
+<div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+        <p>You are about to leave our website. Are you sure you'd like to continue?</p>
+        <button id="confirm-yes">Yes</button>
+        <button id="confirm-no">No</button>
+    </div>
+</div>
+
+
+<script>
+    const modal = document.getElementById("confirmation-modal");
+    const confirmYesButton = document.getElementById("confirm-yes");
+    const confirmNoButton = document.getElementById("confirm-no");
+
+    // Function to display the confirmation modal
+    function showConfirmationPopup(link) {
+        modal.style.display = "block";
+        
+        // Store the link's href in a data attribute to use later
+        modal.setAttribute("data-redirect-url", link.href);
+    }
+
+    // Function to close the confirmation modal
+    function closeConfirmationPopup() {
+        modal.style.display = "none";
+    }
+
+    // Function to check if a link is external
+    function isExternalLink(link) {
+        const currentLocation = window.location;
+        const linkUrl = new URL(link.href, currentLocation);
+
+        // Check if the link's hostname is different from the current hostname
+        return currentLocation.hostname !== linkUrl.hostname;
+    }
+
+    // Add click event listener to all links on the page
+    const allLinks = document.querySelectorAll("a");
+
+    allLinks.forEach((link) => {
+        link.addEventListener("click", function (event) {
+            if (isExternalLink(link)) {
+                event.preventDefault(); // Prevent the default link behavior for external links
+                showConfirmationPopup(link);
+            }
+        });
+    });
+
+    // Add click event listeners to the Yes and No buttons
+    confirmYesButton.addEventListener("click", function () {
+        closeConfirmationPopup();
+
+        // Get the stored redirect URL from the modal's data attribute
+        const redirectURL = modal.getAttribute("data-redirect-url");
+
+        if (redirectURL) {
+            window.location.href = redirectURL; // Redirect to the stored URL
+        }
+    });
+
+    confirmNoButton.addEventListener("click", function () {
+        closeConfirmationPopup();
+    });
+</script>
