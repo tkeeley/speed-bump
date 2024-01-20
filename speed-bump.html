@@ -1,5 +1,10 @@
 <style>
-    .modal {
+
+    :root {
+        --main-brand-color: cornflowerblue;
+      }
+
+      .speed-bump-modal {
         display: none;
         position: fixed;
         z-index: 1;
@@ -8,22 +13,63 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(0, 0, 0, 0.7);
     }
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
+    
+    .speed-bump-modal-content {
+        background-color: white;
+        margin: 20% auto;
         padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
+        border-radius: 8px;
+        border: 2px solid var(--main-brand-color);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        max-width: 70%;
+        text-align: center;
+    }
+    
+    .speed-bump-modal p {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .speed-bump-modal button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: var(--main-brand-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: transform 0.2s;
+    }
+
+    .speed-bump-modal button:hover {
+        transform: scale(1.05);
+    }
+    
+    .speed-bump-modal button#confirm-yes {
+        background-color: var(--main-brand-color); /* Green */
+    }
+    
+    .speed-bump-modal button#confirm-no {
+        background-color: #f44336; /* Red */
+    }
+    
+    @media (max-width: 768px) {
+        .speed-bump-modal-content {
+            margin: 10% auto;
+        }
     }
 </style>
+<a href="https://www.facebook.com">Facebook</a>
+<a href="/test.html">Test</a>
 
-<div id="confirmation-modal" class="modal">
-    <div class="modal-content">
+<div id="confirmation-modal" class="speed-bump-modal">
+    <div class="speed-bump-modal-content">
         <p>You are about to leave our website. Are you sure you'd like to continue?</p>
-        <button id="confirm-yes">Yes</button>
-        <button id="confirm-no">No</button>
+        <button id="confirm-yes">Continue</button>
+        <button id="confirm-no">Go Back</button>
     </div>
 </div>
 
